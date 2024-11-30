@@ -94,6 +94,11 @@ if [[ ! -L ~/.local/bin/bat ]]; then
   ln -s /usr/bin/batcat ~/.local/bin/bat
 fi
 
+echo -e "${BRed}fixing fd...${NC}"
+if [[ ! -L ~/.local/bin/fd ]]; then
+  ln -s $(which fdfind) ~/.local/bin/fd
+fi
+
 echo -e "${BRed}installing nerd font...${NC}"
 declare -a fonts=(
   #   BitstreamVeraSansMono
