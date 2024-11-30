@@ -178,7 +178,7 @@ rm ~/.gitconfig
 cp ubuntu_terminal_setup/.config/git/.gitconfig ~/
 
 echo -e "${BRed}Build bat cache...${NC}"
-bat cache --build
+batcat cache --build
 
 echo -e "${BRed}REBOOTING NOW...${NC}"
 sleep 10
