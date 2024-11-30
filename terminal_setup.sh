@@ -57,6 +57,8 @@ while read -r p; do sudo apt-get install -y $p; done < <(
     wget
     curl
     nano
+    gcc
+    cmake
     neovim
     python3-neovim
     git

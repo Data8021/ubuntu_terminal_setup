@@ -1,9 +1,9 @@
 # Path
 typeset -U path cdpath fpath manpath
 
-path+="~/.config/zsh/plugins/fzf-tab"
-fpath+="~/.config/zsh/plugins/fzf-tab"
-path+="~/.local/bin"
+path+="$HOME/.config/zsh/plugins/fzf-tab"
+fpath+="$HOME/.config/zsh/plugins/fzf-tab"
+path+="$HOME/.local/bin"
 
 # set compinit 
 autoload -U compinit && compinit
@@ -14,7 +14,7 @@ source ~/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
 # History
 HISTSIZE="10000"
 SAVEHIST="10000"
-HISTFILE="~/.config/zsh/zsh_history"
+HISTFILE="$HOME/.config/zsh/zsh_history"
 
 setopt HIST_FCNTL_LOCK
 unsetopt APPEND_HISTORY
@@ -29,7 +29,7 @@ unsetopt EXTENDED_HISTORY
 source ~/.config/zsh/plugins/themes/catppuccin_macchiato-zsh-syntax-highlighting.zsh
 
 # Load fzf
-source <(fzf --zsh)
+source /usr/share/doc/fzf/examples/key-bindings.zsh
 
 FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS
 # # Use fzf in fullscreen mode with command line at the top, allow to cycle through results when moving out
@@ -47,7 +47,6 @@ FZF_DEFAULT_OPTS+=" \
 --color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
 --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
 --color=marker:#b7bdf8,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796 \
---color=selected-bg:#494d64 \
 --multi"
 export FZF_DEFAULT_OPTS
 
@@ -104,9 +103,6 @@ alias -- tarnow='tar -acf '
 alias -- untar='tar -zxvf '
 alias -- vdir='vdir --color=auto'
 alias -- wget='wget -c '
-
-# kitty ssh fix
-alias -- ssh='TERM=xterm-256color ssh'
 
 # Load reminaing plugins
 source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
