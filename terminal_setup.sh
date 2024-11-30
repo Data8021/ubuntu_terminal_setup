@@ -177,6 +177,17 @@ cp ubuntu_terminal_setup/.config/nvim/colors.lua ~/.config/nvim/lua/plugins
 rm ~/.gitconfig
 cp ubuntu_terminal_setup/.config/git/.gitconfig ~/
 
+git clone https://github.com/Aloxaf/fzf-tab ~/.config/zsh/plugins/fzf-tab
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.config/zsh/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.config/zsh/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-history-substring-search ~/.config/zsh/plugins/zsh-history-substring-search
+
+git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+git clone https://github.com/tmux-plugins/tmux-sensible ~/.config/tmux/plugins/tmux-sensible
+git clone https://github.com/tmux-plugins/tmux-prefix-highlight.git ~/.config/tmux/plugins/tmux-prefix-highlight
+mkdir -p ~/.config/tmux/plugins/catppuccin
+git clone https://github.com/catppuccin/tmux ~/.config/tmux/plugins/catppuccin/tmux
+
 echo -e "${BRed}Build bat cache...${NC}"
 batcat cache --build
 
