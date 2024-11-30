@@ -167,6 +167,7 @@ cp ubuntu_terminal_setup/.config/starship.toml ~/.config
 cp -r ubuntu_terminal_setup/.config/bat ~/.config
 cp -r ubuntu_terminal_setup/.config/tmux ~/.config
 cp -r ubuntu_terminal_setup/.config/zsh ~/.config
+cp -r ubuntu_terminal_setup/.config/lazygit ~/.config
 
 rm ~/.config/nvim/lua/config/keymaps.lua
 cp ubuntu_terminal_setup/.config/nvim/keymaps.lua ~/.config/nvim/lua/config
@@ -181,4 +182,3 @@ bat cache --build
 echo -e "${BRed}REBOOTING NOW...${NC}"
 sleep 10
 sudo reboot now
-
