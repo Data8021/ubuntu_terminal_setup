@@ -2,36 +2,37 @@
 
 # menu function
 function choose_from_menu() {
-    local prompt="$1" outvar="$2"
-    shift
-    shift
-    local options=("$@") cur=0 count=${#options[@]} index=0
-    local esc=$(echo -en "\e") # cache ESC as test doesn't allow esc codes
-    printf "$prompt\n"
-    while true
-    do
-        # list all options (option list is zero-based)
-        index=0 
-        for o in "${options[@]}"
-        do
-            if [ "$index" == "$cur" ]
-            then echo -e " >\e[7m$o\e[0m" # mark & highlight the current option
-            else echo "  $o"
-            fi
-            (( index++ ))
-        done
-        read -s -n3 key # wait for user to key in arrows or ENTER
-        if [[ $key == $esc[A ]] # up arrow
-        then (( cur-- )); (( cur < 0 )) && (( cur = 0 ))
-        elif [[ $key == $esc[B ]] # down arrow
-        then (( cur++ )); (( cur >= count )) && (( cur = count - 1 ))
-        elif [[ $key == "" ]] # nothing, i.e the read delimiter - ENTER
-        then break
-        fi
-        echo -en "\e[${count}A" # go up to the beginning to re-render
+  local prompt="$1" outvar="$2"
+  shift
+  shift
+  local options=("$@") cur=0 count=${#options[@]} index=0
+  local esc=$(echo -en "\e") # cache ESC as test doesn't allow esc codes
+  printf "$prompt\n"
+  while true; do
+    # list all options (option list is zero-based)
+    index=0
+    for o in "${options[@]}"; do
+      if [ "$index" == "$cur" ]; then
+        echo -e " >\e[7m$o\e[0m" # mark & highlight the current option
+      else
+        echo "  $o"
+      fi
+      ((index++))
     done
-    # export the selection to the requested output variable
-    printf -v $outvar "${options[$cur]}"
+    read -s -n3 key               # wait for user to key in arrows or ENTER
+    if [[ $key == $esc[A ]]; then # up arrow
+      ((cur--))
+      ((cur < 0)) && ((cur = 0))
+    elif [[ $key == $esc[B ]]; then # down arrow
+      ((cur++))
+      ((cur >= count)) && ((cur = count - 1))
+    elif [[ $key == "" ]]; then # nothing, i.e the read delimiter - ENTER
+      break
+    fi
+    echo -en "\e[${count}A" # go up to the beginning to re-render
+  done
+  # export the selection to the requested output variable
+  printf -v $outvar "${options[$cur]}"
 }
 
 # Set color
@@ -40,8 +41,8 @@ NC='\033[0m'
 
 # User selects chipset
 selections=(
-"x86_64"
-"arm64"
+  "x86_64"
+  "arm64"
 )
 choose_from_menu "${BRed}Select chipset...${NC}" selected_choice "${selections[@]}"
 
@@ -51,7 +52,8 @@ sudo apt update
 sudo apt upgrade -y
 
 echo -e "${BRed}installing initial set of terminal packages...${NC}"
-while read -r p ; do sudo apt-get install -y $p ; done < <(cat << "EOF"
+while read -r p; do sudo apt-get install -y $p; done < <(
+  cat <<"EOF"
     wget
     curl
     nano
@@ -92,25 +94,25 @@ fi
 
 echo -e "${BRed}installing nerd font...${NC}"
 declare -a fonts=(
-#   BitstreamVeraSansMono
-#   CascadiaCode
-#   CodeNewRoman
-#   DroidSansMono
-#   FiraCode
-#   FiraMono
-#   Go-Mono
-#   Hack
-#   Hermit
+  #   BitstreamVeraSansMono
+  #   CascadiaCode
+  #   CodeNewRoman
+  #   DroidSansMono
+  #   FiraCode
+  #   FiraMono
+  #   Go-Mono
+  #   Hack
+  #   Hermit
   JetBrainsMono
-#   Meslo
-#   Noto
-#   Overpass
-#   ProggyClean
-#   RobotoMono
-#   SourceCodePro
-#   SpaceMono
-#   Ubuntu
-#   UbuntuMono
+  #   Meslo
+  #   Noto
+  #   Overpass
+  #   ProggyClean
+  #   RobotoMono
+  #   SourceCodePro
+  #   SpaceMono
+  #   Ubuntu
+  #   UbuntuMono
 )
 
 version=$(curl -s 'https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest' | jq -r '.name')
@@ -130,7 +132,7 @@ for font in "${fonts[@]}"; do
   zip_file="${font}.zip"
   download_url="https://github.com/ryanoasis/nerd-fonts/releases/download/${version}/${zip_file}"
   wget "$download_url"
-  unzip -o "$zip_file" -d ./tmp  
+  unzip -o "$zip_file" -d ./tmp
 done
 
 find ./tmp -name 'Windows Compatible' -delete
@@ -170,9 +172,13 @@ rm ~/.config/nvim/lua/config/keymaps.lua
 cp ubuntu_terminal_setup/.config/nvim/keymaps.lua ~/.config/nvim/lua/config
 cp ubuntu_terminal_setup/.config/nvim/colors.lua ~/.config/nvim/lua/plugins
 
+rm ~/.gitconfig
+cp ubuntu_terminal_setup/.config/git/.gitconfig ~/
+
 echo -e "${BRed}Build bat cache...${NC}"
 bat cache --build
 
 echo -e "${BRed}REBOOTING NOW...${NC}"
 sleep 10
 sudo reboot now
+
