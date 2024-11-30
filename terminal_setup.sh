@@ -167,6 +167,7 @@ cp ubuntu_terminal_setup/.config/starship.toml ~/.config
 cp -r ubuntu_terminal_setup/.config/bat ~/.config
 cp -r ubuntu_terminal_setup/.config/tmux ~/.config
 cp -r ubuntu_terminal_setup/.config/zsh ~/.config
+cp ubuntu_terminal_setup/.config/.zprofile ~/
 cp -r ubuntu_terminal_setup/.config/lazygit ~/.config
 
 rm ~/.config/nvim/lua/config/keymaps.lua
